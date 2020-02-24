@@ -13,7 +13,7 @@ namespace FlowerShop
         // should apply a 20% mark-up to each flower.
         public double Price {
             get {
-                return 0;
+                return flowers.Sum(x > x.Cost * 2.0)
             }
         }
 
@@ -33,7 +33,12 @@ namespace FlowerShop
 
         public Order(IOrderDAO dao, IClient client)
         {
+            this.flowers = new List<IFlower>();
+            this.isDelivered = isDelivered();
+            Client = Client;
+
             Id = dao.AddOrder(client);
+
         }
 
         // used when we already have an order with an Id.
@@ -47,12 +52,17 @@ namespace FlowerShop
 
         public void AddFlowers(IFlower flower, int n)
         {
-            throw new NotImplementedException();
+            int i = 0;
+            while (i < n)
+            {
+                flowers.Add(flower);
+                i++;
+            }
         }
 
         public void Deliver()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
